@@ -18,9 +18,10 @@
         /* Navigation */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; background: white; z-index: 100; }
         .logo { font-weight: bold; font-size: 22px; color: var(--primary); text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+        .nav-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; }
-        .btn-signin { background: transparent; border: 1px solid var(--primary); padding: 8px 16px; border-radius: 6px; color: var(--primary); cursor: pointer; font-weight: 600; }
+        .btn-signin { background: transparent; border: 1px solid var(--primary); padding: 8px 16px; border-radius: 6px; color: var(--primary); cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-signin:hover { background: var(--primary); color: white; }
 
         /* Hero Section */
         .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #F0F4F8 0%, #E6EEF8 100%); }
@@ -28,19 +29,24 @@
         .hero p { font-size: 20px; color: #5A6A85; margin-bottom: 30px; }
         .badges { display: flex; justify-content: center; gap: 30px; font-weight: 600; color: #64748B; margin-bottom: 20px; }
 
-        /* Form / Calculator Interactive Section */
+        /* Form / Interactive Section */
         .interactive-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 50px 0; align-items: start; }
         .slider-box { background: var(--light-bg); padding: 30px; border-radius: 12px; border: 1px solid #E2E8F0; }
-        .slide-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--secondary); cursor: pointer; transition: 0.2s; }
-        .slide-card:hover, .slide-card.active { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .slide-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #CBD5E1; cursor: pointer; transition: 0.2s; }
+        .slide-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .slide-card.active { border-left-color: var(--secondary); background: #EDF5FF; }
         
         .form-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; }
         .form-box h3 { margin-top: 0; color: var(--primary); }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px; box-sizing: border-box; }
-        .btn-submit { background: var(--success); color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        .btn-submit { background: var(--success); color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn-submit:hover { background: #27AE60; }
+        
+        /* Message Banner */
+        .alert-box { display: none; margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; font-weight: 600; }
+        .alert-success { background-color: #D4EDDA; color: #155724; border: 1px solid #C3E6CB; }
 
         /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; margin: 60px 0; background: var(--primary); color: white; padding: 40px; border-radius: 12px; }
@@ -66,6 +72,10 @@
         
         /* Disclosures */
         .disclosures { border-top: 1px solid #334155; padding-top: 30px; font-size: 12px; line-height: 1.8; color: #64748B; }
+
+        @media (max-width: 768px) {
+            .interactive-section, .stats-grid, .offers-grid, .footer-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -80,8 +90,8 @@
             <li><a href="#">Investing</a></li>
             <li><a href="#">Resources</a></li>
             <li><a href="#">Help</a></li>
+            <li><button class="btn-signin" onclick="handleSignIn()">Sign In</button></li>
         </ul>
-        <button class="btn-signin">Sign In</button>
     </nav>
 
     <!-- Hero Section -->
@@ -102,19 +112,19 @@
     <section class="container interactive-section">
         <div class="slider-box">
             <h3>Explore Products</h3>
-            <div class="slide-card active">
+            <div class="slide-card active" data-product="Personal Loan">
                 <strong>Pay down your debt</strong>
                 <p>APRs as low as 6.53%³</p>
             </div>
-            <div class="slide-card">
+            <div class="slide-card" data-product="Personal Loan">
                 <strong>Cover a large expense</strong>
                 <p>Funding in as little as 24 hours¹⁰</p>
             </div>
-            <div class="slide-card">
+            <div class="slide-card" data-product="LevelUp Savings">
                 <strong>Earn more on what you save</strong>
                 <p>Earn 4.20% APY with $250+ in deposits⁴</p>
             </div>
-            <div class="slide-card">
+            <div class="slide-card" data-product="Auto Refinancing">
                 <strong>Lower your car payment</strong>
                 <p>Save up to $2,500⁵</p>
             </div>
@@ -123,10 +133,9 @@
         <!-- Working Contact/Application Form -->
         <div class="form-box">
             <h3>Respond to Mail Offer / Apply</h3>
-            <form action="https://web3forms.com" method="POST">
-                <!-- Replace YOUR_ACCESS_KEY_HERE with your Web3forms key for live emails -->
+            <form id="leadForm" action="https://web3forms.com" method="POST">
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                <input type="hidden" name="subject" value="New Happen Bank Lead">
+                <input type="hidden" name="subject" value="New Happen Bank Application Lead">
                 
                 <div class="form-group">
                     <label for="offerCode">Mail Offer Code (Optional)</label>
@@ -141,14 +150,15 @@
                     <input type="email" id="email" name="email" required placeholder="john@example.com">
                 </div>
                 <div class="form-group">
-                    <label for="product">Product of Interest</label>
-                    <select id="product" name="product">
+                    <label for="productDropdown">Product of Interest</label>
+                    <select id="productDropdown" name="product">
                         <option value="Personal Loan">Personal Loan</option>
                         <option value="LevelUp Savings">LevelUp Savings Account</option>
                         <option value="Auto Refinancing">Auto Refinancing</option>
                     </select>
                 </div>
                 <button type="submit" class="btn-submit">Check Your Rate</button>
+                <div id="statusAlert" class="alert-box alert-success">Submitting... Verifying your offer.</div>
             </form>
         </div>
     </section>
@@ -176,20 +186,3 @@
     </section>
 
     <!-- Additional Features Grid -->
-    <section class="container">
-        <h2 class="offers-title">More ways we make it happen.</h2>
-        <div class="offers-grid">
-            <div class="offer-card">
-                <h4>DebtIQ</h4>
-                <p>One dashboard. All your linked credit cards, transactions, and balances — build a plan with confidence.¹⁵</p>
-            </div>
-            <div class="offer-card">
-                <h4>TopUp Loan</h4>
-                <p>Access additional funds and still keep one monthly payment when you refinance an existing Personal Loan.¹⁶</p>
-            </div>
-            <div class="offer-card">
-                <h4>Faster Process</h4>
-                <p>Streamlined personal loan application setup ready in minutes.</p>
-            </div>
-            <div class="offer-card">
-                <h4>Early Payday</h4>
