@@ -3,14 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Landing Page</title>
+    <title>My Professional Landing Page</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #333; }
+        /* Basic Styling */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        header { background: #007bff; color: white; padding: 40px 20px; text-align: center; }
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Data / Features Styling */
+        .features { display: flex; gap: 20px; margin: 40px 0; justify-content: space-between; }
+        .card { flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 8px; text-align: center; background: #f9f9f9; }
+        
+        /* Form Styling */
+        form { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #28a745; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background: #218838; }
+        
+        /* Popup Alert */
+        .success-msg { display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-top: 15px; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Landing Page</h1>
-    <p>Built entirely on GitHub!</p>
+
+    <header>
+        <h1>Welcome to Our Platform</h1>
+        <p>Your simple, fast, and secure business solution.</p>
+    </header>
+
+    <div class="container">
+        <!-- Website Data / Features Section -->
+        <h2>Why Choose Us?</h2>
+        <div class="features">
+            <div class="card">
+                <h3>Fast Performance</h3>
+                <p>Optimized static deployment via Hostinger.</p>
+            </div>
+            <div class="card">
+                <h3>Secure Code</h3>
+                <p>Version controlled safely using GitHub repositories.</p>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <h2>Get in Touch</h2>
+        <!-- Replace 'YOUR_ACCESS_KEY' with your real key from web3forms.com or formspree.io later -->
+        <form id="contactForm" action="https://web3forms.com" method="POST">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="How can we help you?"></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">Send Message</button>
+            <div id="successAlert" class="success-msg">Thank you! Your message has been sent successfully.</div>
+        </form>
+    </div>
+
+    <!-- Embedded Custom Script -->
+    <script>
+        // Custom JavaScript logic to handle form behavior dynamically
+        const form = document.getElementById('contactForm');
+        const alertBox = document.getElementById('successAlert');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            // If using standard Formspree/Web3Forms, it will redirect normally.
+            // This script changes the button text locally to show it's sending.
+            submitBtn.textContent = "Sending...";
+            submitBtn.disabled = true;
+        });
+    </script>
 </body>
 </html>
